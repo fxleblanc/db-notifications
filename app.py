@@ -23,7 +23,7 @@ email = False
 
 def job():
 	global email
-	folder_metadata = client.metadata('/felix-helene')
+	folder_metadata = client.metadata('/folder')
 	folder = folder_metadata['contents']
 	if(len(folder) == 0):
 		print 'The folder is empty'
