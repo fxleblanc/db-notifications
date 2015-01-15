@@ -19,20 +19,26 @@ print authorize_url
 code = raw_input("Enter the authorization code here: ").strip()
 access_token, user_id = flow.finish(code)
 client = dropbox.client.DropboxClient(access_token)
+email = False
 
 def job():
+	global email
 	folder_metadata = client.metadata('/felix-helene')
 	folder = folder_metadata['contents']
 	if(len(folder) == 0):
 		print 'The folder is empty'
+		email = True
 	else:
-		server = smtplib.SMTP('smtp.gmail.com:587')
-		server.starttls()
-		server.login(username, password)
-		server.sendmail(fromaddr, toaddr, msg)
-		server.quit()
+		print 'A file has been detected'
+		if email:
+			server = smtplib.SMTP('smtp.gmail.com:587')
+			server.starttls()
+			server.login(username, password)
+			server.sendmail(fromaddr, toaddr, msg)
+			server.quit()			
+			email = False
 
-schedule.every(5).seconds.do(job)
+schedule.every().hour.do(job)
 
 while True:
 	schedule.run_pending()
