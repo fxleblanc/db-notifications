@@ -3,18 +3,7 @@ import unittest
 import time
 import requests
 import smtplib
-
-
-class TestMailDump(unittest.TestCase):
-    process = None
-
-    def setUp(self):
-        self.process = subprocess.Popen(["maildump"])
-        time.sleep(0.5)  # Start the server
-        print self.process.pid
-
-    def tearDown(self):
-        self.process.kill()
+from test_utils import TestMailDump
 
 
 class TestSendMail(TestMailDump):
