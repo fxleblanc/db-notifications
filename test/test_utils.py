@@ -11,7 +11,7 @@ class TestMailDump(unittest.TestCase):
 
     def setUp(self):
         self.process = subprocess.Popen(["maildump"])
-        time.sleep(0.5)  # Start the server
+        time.sleep(1)  # Start the server
 
     def tearDown(self):
         self.process.kill()
